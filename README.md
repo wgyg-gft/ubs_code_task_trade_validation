@@ -1,15 +1,23 @@
 # ubs_code_task_trade_validation
 
-# Getting Started
-
 ### Reference Documentation
-Swagger UI url
+## Swagger UI url
 
-http://localhost:8080/swagger-ui/index.html
+**http://localhost:8080/swagger-ui/index.html**
 
+##Trade validation endpoint
 
-Trade validation endpoint
+POST **http://localhost:8080/process/**
 
-POST http://localhost:8080/process/
+with JSON format request body
 
-Request Body with JSON format
+#Code Structure
+
+TransactionValidationController.java
+> Rest Controller
+
+RecordService.java 
+> Service that covert the input JSON String to a TransactionRecord object
+
+FOREXTransactionValicationService.java 
+> Service that extends the ValidationService and use **AllTypeValidator**, **OptionTypeValidator** and **SportFowardTypeValidator** to validate the TransactionRecord Object
