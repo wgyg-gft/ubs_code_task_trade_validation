@@ -33,18 +33,21 @@ public class OptionTypeValidator extends TypeValidator {
 
 		validated = validateStyle(tr.getStyle(), remark) && validated;
 
-		if (tr.getStyle().equals("AMERICAN")) {
+		if (tr.getStyle().equalsIgnoreCase("AMERICAN")) {
 			validated = validated && validateFieldNotNull(tr.getExcerciseStartDate(), "excerciseStartDate", remark);
 			validated = validated && validateFieldNotNull(tr.getTradeDate(), "tradeDate", remark);
 			validated = validated && validateFieldNotNull(tr.getExpiryDate(), "expiryDate", remark);
-			validated = validated && validateFieldNotNull(tr.getPremiumDate(), "premiumDate", remark);
-			validated = validated && validateFieldNotNull(tr.getDeliveryDate(), "deliveryDate", remark);
 			
 			validated = validated && validateExeciseStartDateWithinTradeDateExpiryDate(tr.getExcerciseStartDate(), tr.getTradeDate(), tr.getExpiryDate(), remark);
-			validated = validated && validateExpiryDateAndPremiumDateBeforeDeliveryDate(tr.getExpiryDate(), tr.getPremiumDate(), tr.getDeliveryDate(), remark);
-
 		}
 
+		validated = validated && validateFieldNotNull(tr.getExpiryDate(), "expiryDate", remark);
+		validated = validated && validateFieldNotNull(tr.getPremiumDate(), "premiumDate", remark);
+		validated = validated && validateFieldNotNull(tr.getDeliveryDate(), "deliveryDate", remark);
+		
+		validated = validated && validateExpiryDateAndPremiumDateBeforeDeliveryDate(tr.getExpiryDate(), tr.getPremiumDate(), tr.getDeliveryDate(), remark);
+
+		
 		if (validated) {
 			return ServiceResponse.ok(remark.toString());
 		} else {

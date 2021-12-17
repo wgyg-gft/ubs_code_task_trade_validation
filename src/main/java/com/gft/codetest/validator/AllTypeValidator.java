@@ -51,7 +51,7 @@ public class AllTypeValidator extends TypeValidator {
 	}
 
 	public boolean validateIsValueDateBehindTradeDate(Date valueDate, Date tradeDate, StringBuilder remark) {
-		if (valueDate.getTime() < tradeDate.getTime()) {
+		if (tradeDate.getTime() < valueDate.getTime()) {
 			return true;
 		} else {
 			remark.append(MessageFormat.format("valueDate {0} cannot be before tradeDate {1}; ", dateFormat.format(valueDate), dateFormat.format(tradeDate)));
@@ -66,7 +66,7 @@ public class AllTypeValidator extends TypeValidator {
 		if (cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
 			return true;
 		} else {
-			remark.append(MessageFormat.format("Date {0} {1} is not in the weekend; ", dateType, dateFormatWithDOW.format(date)));
+			remark.append(MessageFormat.format("{0} {1} is in the weekend; ", dateType, dateFormatWithDOW.format(date)));
 			return false;
 		}
 	}
